@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "771667961238",
+    "project_id": "calendar-e3c51",
+    "storage_bucket": "calendar-e3c51.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771667961238:android:69b76b98e368d562eba9b7",
+        "android_client_info": {
+          "package_name": "www.um2306.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "771667961238-2rk1c5hon12tmngdejqi2e3o59jt3hj7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAtYNmmMTQXdrzmpffmplEhpyRv4ajqEA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "771667961238-2rk1c5hon12tmngdejqi2e3o59jt3hj7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "771667961238-n4a3gvtlc26tledgqc4kaa48fe5qg5lb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "www.um2306.com"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
