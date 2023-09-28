@@ -1,29 +1,27 @@
-import '/backend/api_requests/api_calls.dart';
 import '/components/main_web_nav_widget.dart';
 import '/components/mobile_nav_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_web_view.dart';
-import '/formulario/formulario_widget.dart';
-import '/home_page/home_page_widget.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'pagos_widget.dart' show PagosWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class PagosModel extends FlutterFlowModel {
+class PagosModel extends FlutterFlowModel<PagosWidget> {
+  ///  Local state fields for this page.
+
+  String daySelected = '';
+
+  bool visibility = false;
+
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
-  // Stores action output result for [Backend Call - API (testMetodo)] action in Pagos widget.
-  ApiCallResponse? apiResultu72;
   // Model for mainWebNav component.
   late MainWebNavModel mainWebNavModel;
   // Model for mobileNav component.
   late MobileNavModel mobileNavModel;
-  var codigoqr = '';
 
   /// Initialization and disposal methods.
 
@@ -33,7 +31,6 @@ class PagosModel extends FlutterFlowModel {
   }
 
   void dispose() {
-    unfocusNode.dispose();
     mainWebNavModel.dispose();
     mobileNavModel.dispose();
   }

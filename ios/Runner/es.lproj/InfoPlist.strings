@@ -1,0 +1,3 @@
+NSFaceIDUsageDescription = "inicia sesion con tu huella o faceID";
+PermissionGroupNotification = "Recibe mensajes siempre";
+NSCalendarsUsageDescription = "Calendar";

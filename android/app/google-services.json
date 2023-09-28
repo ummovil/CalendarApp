@@ -1,37 +1,45 @@
 {
   "project_info": {
-    "project_number": "771667961238",
-    "project_id": "calendar-e3c51",
-    "storage_bucket": "calendar-e3c51.appspot.com"
+    "project_number": "400384978728",
+    "project_id": "testdemo-5f4be",
+    "storage_bucket": "testdemo-5f4be.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:771667961238:android:69b76b98e368d562eba9b7",
+        "mobilesdk_app_id": "1:400384978728:android:4c8a5426924e3e5e3eaa1d",
         "android_client_info": {
           "package_name": "www.um2306.com"
         }
       },
       "oauth_client": [
         {
-          "client_id": "771667961238-2rk1c5hon12tmngdejqi2e3o59jt3hj7.apps.googleusercontent.com",
+          "client_id": "400384978728-enrvuis3mjs02fc7gu2sde4gsn2a6faj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "www.um2306.com",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "400384978728-i6hvp3o652bmam8ps43j7734g0hvflhc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBAtYNmmMTQXdrzmpffmplEhpyRv4ajqEA"
+          "current_key": "AIzaSyAbT207EokOG5ZrMmZfdwjf7nyv_p6PT1Q"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "771667961238-2rk1c5hon12tmngdejqi2e3o59jt3hj7.apps.googleusercontent.com",
+              "client_id": "400384978728-i6hvp3o652bmam8ps43j7734g0hvflhc.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "771667961238-n4a3gvtlc26tledgqc4kaa48fe5qg5lb.apps.googleusercontent.com",
+              "client_id": "400384978728-ahfc71tt7ahta3sq246475ddj76n19kk.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "www.um2306.com"

@@ -1,0 +1,3 @@
+NSFaceIDUsageDescription = "log in with your fingerprint or faceID";
+PermissionGroupNotification = "Always receive messages";
+NSCalendarsUsageDescription = "Calendar";

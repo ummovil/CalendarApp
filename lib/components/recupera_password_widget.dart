@@ -43,8 +43,10 @@ class _RecuperaPasswordWidgetState extends State<RecuperaPasswordWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+    return
+        // este container contiene la pantalla para recuperar la contraseña con un campo de texto y un botón
+        Align(
+      alignment: AlignmentDirectional(0.00, 0.00),
       child: AnimatedContainer(
         duration: Duration(milliseconds: 100),
         curve: Curves.elasticOut,
@@ -102,9 +104,11 @@ class _RecuperaPasswordWidgetState extends State<RecuperaPasswordWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.00, 0.00),
                       child: Text(
-                        'Recuperacion de contraseña',
+                        FFLocalizations.of(context).getText(
+                          'dju1y9ne' /* Recuperacion de contraseña */,
+                        ),
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context)
                             .headlineMedium
@@ -123,7 +127,9 @@ class _RecuperaPasswordWidgetState extends State<RecuperaPasswordWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                       child: Text(
-                        'Ingresa tu matrícula, haz clic en el botón de abajo y te mandarémos una dirección url de recuperación.',
+                        FFLocalizations.of(context).getText(
+                          'ktoresp6' /* Ingresa tu matrícula, haz clic... */,
+                        ),
                         style:
                             FlutterFlowTheme.of(context).labelMedium.override(
                                   fontFamily: 'Inter',
@@ -139,13 +145,17 @@ class _RecuperaPasswordWidgetState extends State<RecuperaPasswordWidget> {
                   ],
                 ),
               ),
+
+              // Campo de texto donde el usuario ingresará su matrícula para posteriormente recibir un correo de recuperación de contraseña.
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(24.0, 14.0, 24.0, 0.0),
                 child: TextFormField(
                   controller: _model.matriculaController,
                   obscureText: false,
                   decoration: InputDecoration(
-                    labelText: 'Ingresa tu numero de matricula',
+                    labelText: FFLocalizations.of(context).getText(
+                      'l9e1owd1' /* Ingresa tu numero de matricula */,
+                    ),
                     labelStyle: FlutterFlowTheme.of(context)
                         .bodyMedium
                         .override(
@@ -216,6 +226,7 @@ class _RecuperaPasswordWidgetState extends State<RecuperaPasswordWidget> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    // Envía un correo de recuperación de cotraseña al correo institucional obtenido del campo de texto.
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 14.0, 0.0, 0.0),
@@ -278,7 +289,9 @@ class _RecuperaPasswordWidgetState extends State<RecuperaPasswordWidget> {
 
                           setState(() {});
                         },
-                        text: 'Enviar',
+                        text: FFLocalizations.of(context).getText(
+                          'y91g32yl' /* Enviar */,
+                        ),
                         options: FFButtonOptions(
                           width: 150.0,
                           height: 48.0,

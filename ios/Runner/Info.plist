@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>CalendarApp</string>
+	<string>demoAppMovil</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -16,6 +16,13 @@
 	<string>demoAppMovil</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>es</string>
+		<string>en</string>
+		<string>fr</string>
+		<string>pt</string>
+	</array>
 
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
@@ -28,7 +35,7 @@
             <string>Editor</string>
             <key>CFBundleURLSchemes</key>
             <array>
-                <string>com.googleusercontent.apps.771667961238-n4a3gvtlc26tledgqc4kaa48fe5qg5lb</string>
+                <string>com.googleusercontent.apps.400384978728-ahfc71tt7ahta3sq246475ddj76n19kk</string>
                 
             </array>
         </dict>
@@ -44,9 +51,11 @@
 	<key>NSCameraUsageDescription</key>
     <string>In order to scan for barcodes and QR codes, this app requires permission to access the camera.</string>
 	<key>NSFaceIDUsageDescription</key>
-    <string>Inicia sesión con tu huella</string>
+    <string>inicia sesion con tu huella o faceID</string>
 	<key>PermissionGroupNotification</key>
-    <string>Deseas recibir notificaciones sobre esta app</string>
+    <string>Recibe mensajes siempre</string>
+	<key>NSCalendarsUsageDescription</key>
+    <string>Calendar</string>
 
 
 	<key>UILaunchStoryboardName</key>

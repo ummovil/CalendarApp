@@ -5,12 +5,12 @@ Future initFirebase() async {
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: FirebaseOptions(
-            apiKey: "AIzaSyAvzT8q_liygok5i6FKWPjVahv470k_hDk",
-            authDomain: "calendar-e3c51.firebaseapp.com",
-            projectId: "calendar-e3c51",
-            storageBucket: "calendar-e3c51.appspot.com",
-            messagingSenderId: "771667961238",
-            appId: "1:771667961238:web:888a7a488256a038eba9b7"));
+            apiKey: "AIzaSyACM8luizHXFIKWvoK5paOjSegCdRjMU-I",
+            authDomain: "testdemo-5f4be.firebaseapp.com",
+            projectId: "testdemo-5f4be",
+            storageBucket: "testdemo-5f4be.appspot.com",
+            messagingSenderId: "400384978728",
+            appId: "1:400384978728:web:ba0e548daa1bcd763eaa1d"));
   } else {
     await Firebase.initializeApp();
   }

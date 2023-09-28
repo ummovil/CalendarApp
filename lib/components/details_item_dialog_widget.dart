@@ -60,7 +60,9 @@ class _DetailsItemDialogWidgetState extends State<DetailsItemDialogWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Material(
+    return
+        // Este conteiner contiene los la descripción del item del evento del calendario seleccionado y tiene 7 parametros: titulo,descripción,locacion,alerta y tipo de color y contiene un botón de editar
+        Material(
       color: Colors.transparent,
       elevation: 5.0,
       shape: RoundedRectangleBorder(
@@ -97,6 +99,7 @@ class _DetailsItemDialogWidgetState extends State<DetailsItemDialogWidget> {
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
+                    // Muestra el titulo del item del calendario seleccionado.
                     Expanded(
                       child: Text(
                         widget.title!,
@@ -132,7 +135,15 @@ class _DetailsItemDialogWidgetState extends State<DetailsItemDialogWidget> {
                 children: [
                   Expanded(
                     child: Text(
-                      '${dateTimeFormat('jm', widget.start)} - ${dateTimeFormat('jm', widget.end)}',
+                      '${dateTimeFormat(
+                        'jm',
+                        widget.start,
+                        locale: FFLocalizations.of(context).languageCode,
+                      )} - ${dateTimeFormat(
+                        'jm',
+                        widget.end,
+                        locale: FFLocalizations.of(context).languageCode,
+                      )}',
                       style: FlutterFlowTheme.of(context)
                           .headlineMedium
                           .override(
@@ -160,7 +171,7 @@ class _DetailsItemDialogWidgetState extends State<DetailsItemDialogWidget> {
                         alignment: AlignmentDirectional(0.0, 0.0),
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(0.0, 1.0),
+                            alignment: AlignmentDirectional(0.00, 1.00),
                             child: Container(
                               width: 2.0,
                               height: 50.0,
@@ -186,6 +197,8 @@ class _DetailsItemDialogWidgetState extends State<DetailsItemDialogWidget> {
                         ],
                       ),
                     ),
+
+                    // Mustra la descripción del item del calendario seleccionado.
                     Expanded(
                       child: Padding(
                         padding:
@@ -238,7 +251,7 @@ class _DetailsItemDialogWidgetState extends State<DetailsItemDialogWidget> {
                             shape: BoxShape.circle,
                           ),
                           child: Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: FaIcon(
                               FontAwesomeIcons.locationArrow,
                               color: FlutterFlowTheme.of(context).secondaryText,
@@ -249,6 +262,8 @@ class _DetailsItemDialogWidgetState extends State<DetailsItemDialogWidget> {
                       ],
                     ),
                   ),
+
+                  // Mustra la ubicación del item del calendario seleccionado.
                   Text(
                     widget.location!,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -289,7 +304,7 @@ class _DetailsItemDialogWidgetState extends State<DetailsItemDialogWidget> {
                             shape: BoxShape.circle,
                           ),
                           child: Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: FaIcon(
                               FontAwesomeIcons.solidBell,
                               color: FlutterFlowTheme.of(context).secondaryText,
@@ -300,6 +315,8 @@ class _DetailsItemDialogWidgetState extends State<DetailsItemDialogWidget> {
                       ],
                     ),
                   ),
+
+                  // Mustra la alerta del item del calendario seleccionado.
                   Text(
                     widget.alert!,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -335,7 +352,9 @@ class _DetailsItemDialogWidgetState extends State<DetailsItemDialogWidget> {
                             width: 2.0,
                           ),
                         ),
-                        child: Padding(
+                        child:
+                            // Opcional.
+                            Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 12.0, 16.0, 12.0),
                           child: Row(
@@ -355,7 +374,9 @@ class _DetailsItemDialogWidgetState extends State<DetailsItemDialogWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 0.0, 0.0),
                                     child: Text(
-                                      'Editar',
+                                      FFLocalizations.of(context).getText(
+                                        'vkq1ealv' /* Editar */,
+                                      ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium,
                                     ),

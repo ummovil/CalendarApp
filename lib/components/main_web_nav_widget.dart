@@ -54,7 +54,9 @@ class _MainWebNavWidgetState extends State<MainWebNavWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Container(
+    return
+        // Menú lateral que contiene fila  con items de configuraciones basicas como tema de la aplicación,configuraciones generales,idiómas y cerrar sesión
+        Container(
       width: 270.0,
       height: double.infinity,
       decoration: BoxDecoration(

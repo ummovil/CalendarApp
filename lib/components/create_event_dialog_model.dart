@@ -2,12 +2,13 @@ import '/components/cerrar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'create_event_dialog_widget.dart' show CreateEventDialogWidget;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class CreateEventDialogModel extends FlutterFlowModel {
+class CreateEventDialogModel extends FlutterFlowModel<CreateEventDialogWidget> {
   ///  Local state fields for this component.
 
   Color color = const Color(0xFF5CC1B4);

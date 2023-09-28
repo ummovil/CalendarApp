@@ -4,11 +4,12 @@ import '/components/rating_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'formulario_widget.dart' show FormularioWidget;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class FormularioModel extends FlutterFlowModel {
+class FormularioModel extends FlutterFlowModel<FormularioWidget> {
   ///  Local state fields for this page.
 
   int? num;
@@ -26,10 +27,10 @@ class FormularioModel extends FlutterFlowModel {
   // State field(s) for TextField widget.
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
-  // Stores action output result for [Backend Call - API (RespuestaApi)] action in Button widget.
-  ApiCallResponse? apiResult6bp;
-  // Stores action output result for [Backend Call - API (RespuestaApi)] action in Button widget.
+  // Stores action output result for [Backend Call - API (RespuestaApi)] action in Container widget.
   ApiCallResponse? apiResult;
+  // Stores action output result for [Backend Call - API (RespuestaApi)] action in Container widget.
+  ApiCallResponse? apiResult2;
 
   /// Initialization and disposal methods.
 

@@ -52,7 +52,9 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Container(
+    return
+        // Este container contiene la venta para crear un evento o tarea
+        Container(
       width: MediaQuery.sizeOf(context).width * 0.9,
       constraints: BoxConstraints(
         maxWidth: 400.0,
@@ -72,7 +74,7 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Align(
-                    alignment: AlignmentDirectional(1.0, -1.0),
+                    alignment: AlignmentDirectional(1.00, -1.00),
                     child: InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -88,6 +90,8 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                       ),
                     ),
                   ),
+
+                  // Campo de texto para ingresar el titulo del evento o la tarea según sea el caso.
                   Opacity(
                     opacity: 0.9,
                     child: Padding(
@@ -99,7 +103,9 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                         obscureText: false,
                         decoration: InputDecoration(
                           labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                          hintText: 'Título',
+                          hintText: FFLocalizations.of(context).getText(
+                            'nora2xfr' /* Título */,
+                          ),
                           hintStyle: FlutterFlowTheme.of(context)
                               .labelMedium
                               .override(
@@ -144,6 +150,8 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                   size: 24.0,
                                 ),
                               ),
+
+                              // Campo de texto para ingresar la descripción del evento o la tarea según sea el caso.
                               Expanded(
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -155,7 +163,10 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                     decoration: InputDecoration(
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelMedium,
-                                      hintText: 'Descripción',
+                                      hintText:
+                                          FFLocalizations.of(context).getText(
+                                        'bqyguuex' /* Descripción */,
+                                      ),
                                       hintStyle: FlutterFlowTheme.of(context)
                                           .labelMedium,
                                       enabledBorder: InputBorder.none,
@@ -202,6 +213,8 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                     size: 24.0,
                                   ),
                                 ),
+
+                                // Campo de texto para ingresar la ubicación del evento o la tarea según sea el caso.
                                 Expanded(
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -213,7 +226,10 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                       decoration: InputDecoration(
                                         labelStyle: FlutterFlowTheme.of(context)
                                             .labelMedium,
-                                        hintText: 'Ubicación',
+                                        hintText:
+                                            FFLocalizations.of(context).getText(
+                                          '2h855u3o' /* Ubicación */,
+                                        ),
                                         hintStyle: FlutterFlowTheme.of(context)
                                             .labelMedium,
                                         enabledBorder: InputBorder.none,
@@ -271,15 +287,19 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Text(
-                                          'Todo el día',
+                                          FFLocalizations.of(context).getText(
+                                            'my2vhbia' /* Todo el día */,
+                                          ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium,
                                         ),
                                       ),
+
+                                      // Widget para seleccionar que el evento o tarea durará todo el día.
                                       Expanded(
                                         child: Align(
                                           alignment:
-                                              AlignmentDirectional(1.0, 0.0),
+                                              AlignmentDirectional(1.00, 0.00),
                                           child: Theme(
                                             data: ThemeData(
                                               checkboxTheme: CheckboxThemeData(
@@ -325,6 +345,7 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
+                                        // Widget para seleccionar la fecha inicial de la tarea o evento según sea el caso.
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -345,7 +366,7 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                               );
 
                                               if (_datePicked1Date != null) {
-                                                setState(() {
+                                                safeSetState(() {
                                                   _model.datePicked1 = DateTime(
                                                     _datePicked1Date.year,
                                                     _datePicked1Date.month,
@@ -356,8 +377,13 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                             },
                                             child: Text(
                                               valueOrDefault<String>(
-                                                dateTimeFormat('yMMMd',
-                                                    _model.datePicked1),
+                                                dateTimeFormat(
+                                                  'yMMMd',
+                                                  _model.datePicked1,
+                                                  locale: FFLocalizations.of(
+                                                          context)
+                                                      .languageCode,
+                                                ),
                                                 'fecha inicial',
                                               ),
                                               style:
@@ -366,6 +392,8 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                             ),
                                           ),
                                         ),
+
+                                        // Widget para seleccionar la hora inicial de la tarea o evento según sea el caso.
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -384,7 +412,7 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                                         getCurrentTimestamp),
                                               );
                                               if (_datePicked2Time != null) {
-                                                setState(() {
+                                                safeSetState(() {
                                                   _model.datePicked2 = DateTime(
                                                     getCurrentTimestamp.year,
                                                     getCurrentTimestamp.month,
@@ -398,7 +426,12 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                             child: Text(
                                               valueOrDefault<String>(
                                                 dateTimeFormat(
-                                                    'jm', _model.datePicked2),
+                                                  'jm',
+                                                  _model.datePicked2,
+                                                  locale: FFLocalizations.of(
+                                                          context)
+                                                      .languageCode,
+                                                ),
                                                 'Hora de inicio',
                                               ),
                                               style:
@@ -418,6 +451,7 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
+                                        // Widget para seleccionar la fecha final de la tarea o evento según sea el caso.
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -438,7 +472,7 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                               );
 
                                               if (_datePicked3Date != null) {
-                                                setState(() {
+                                                safeSetState(() {
                                                   _model.datePicked3 = DateTime(
                                                     _datePicked3Date.year,
                                                     _datePicked3Date.month,
@@ -449,8 +483,13 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                             },
                                             child: Text(
                                               valueOrDefault<String>(
-                                                dateTimeFormat('yMMMd',
-                                                    _model.datePicked3),
+                                                dateTimeFormat(
+                                                  'yMMMd',
+                                                  _model.datePicked3,
+                                                  locale: FFLocalizations.of(
+                                                          context)
+                                                      .languageCode,
+                                                ),
                                                 'fecha final',
                                               ),
                                               style:
@@ -459,6 +498,8 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                             ),
                                           ),
                                         ),
+
+                                        // Widget para seleccionar la hora final de la tarea o evento según sea el caso.
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -477,7 +518,7 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                                         getCurrentTimestamp),
                                               );
                                               if (_datePicked4Time != null) {
-                                                setState(() {
+                                                safeSetState(() {
                                                   _model.datePicked4 = DateTime(
                                                     getCurrentTimestamp.year,
                                                     getCurrentTimestamp.month,
@@ -491,7 +532,12 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                             child: Text(
                                               valueOrDefault<String>(
                                                 dateTimeFormat(
-                                                    'jm', _model.datePicked4),
+                                                  'jm',
+                                                  _model.datePicked4,
+                                                  locale: FFLocalizations.of(
+                                                          context)
+                                                      .languageCode,
+                                                ),
                                                 'hora final',
                                               ),
                                               style:
@@ -542,7 +588,9 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Text(
-                                          'Color predeterminado',
+                                          FFLocalizations.of(context).getText(
+                                            'z6g43ev3' /* Color predeterminado */,
+                                          ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium,
                                         ),
@@ -557,6 +605,7 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
+                                        // Widget para selecionar el color de la tarea o evento según sea el caso.
                                         InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
@@ -588,6 +637,8 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                             ),
                                           ),
                                         ),
+
+                                        // Widget para selecionar el color de la tarea o evento según sea el caso.
                                         InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
@@ -619,6 +670,8 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                             ),
                                           ),
                                         ),
+
+                                        // Widget para selecionar el color de la tarea o evento según sea el caso.
                                         InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
@@ -650,6 +703,8 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                             ),
                                           ),
                                         ),
+
+                                        // Widget para selecionar el color de la tarea o evento según sea el caso.
                                         InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
@@ -681,6 +736,8 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                             ),
                                           ),
                                         ),
+
+                                        // Widget para selecionar el color de la tarea o evento según sea el caso.
                                         InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
@@ -712,6 +769,8 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                                             ),
                                           ),
                                         ),
+
+                                        // Widget para selecionar el color de la tarea o evento según sea el caso.
                                         InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
@@ -760,9 +819,11 @@ class _CreateEventDialogWidgetState extends State<CreateEventDialogWidget> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
+
+                  // Crea el evento o tarea con la infomración ingresada.
                   Expanded(
                     child: Align(
-                      alignment: AlignmentDirectional(0.0, 1.0),
+                      alignment: AlignmentDirectional(0.00, 1.00),
                       child: FFButtonWidget(
                         onPressed: () async {
                           Navigator.pop(context);

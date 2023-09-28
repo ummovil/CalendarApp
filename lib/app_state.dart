@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
-import 'flutter_flow/request_manager.dart';
 import '/backend/backend.dart';
 import 'backend/api_requests/api_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
 class FFAppState extends ChangeNotifier {
-  static final FFAppState _instance = FFAppState._internal();
+  static FFAppState _instance = FFAppState._internal();
 
   factory FFAppState() {
     return _instance;
   }
 
   FFAppState._internal();
+
+  static void reset() {
+    _instance = FFAppState._internal();
+  }
 
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
@@ -58,20 +61,46 @@ class FFAppState extends ChangeNotifier {
     prefs.setString('ff_refreshTokenCalendar', _value);
   }
 
-  final _calendarItemListManager = FutureRequestManager<ApiCallResponse>();
-  Future<ApiCallResponse> calendarItemList({
-    String? uniqueQueryKey,
-    bool? overrideCache,
-    required Future<ApiCallResponse> Function() requestFn,
-  }) =>
-      _calendarItemListManager.performRequest(
-        uniqueQueryKey: uniqueQueryKey,
-        overrideCache: overrideCache,
-        requestFn: requestFn,
-      );
-  void clearCalendarItemListCache() => _calendarItemListManager.clear();
-  void clearCalendarItemListCacheKey(String? uniqueKey) =>
-      _calendarItemListManager.clearRequest(uniqueKey);
+  List<int> _casillas = [1, 2, 3, 4, 5];
+  List<int> get casillas => _casillas;
+  set casillas(List<int> _value) {
+    _casillas = _value;
+  }
+
+  void addToCasillas(int _value) {
+    _casillas.add(_value);
+  }
+
+  void removeFromCasillas(int _value) {
+    _casillas.remove(_value);
+  }
+
+  void removeAtIndexFromCasillas(int _index) {
+    _casillas.removeAt(_index);
+  }
+
+  void updateCasillasAtIndex(
+    int _index,
+    int Function(int) updateFn,
+  ) {
+    _casillas[_index] = updateFn(_casillas[_index]);
+  }
+
+  void insertAtIndexInCasillas(int _index, int _value) {
+    _casillas.insert(_index, _value);
+  }
+
+  String _externado = '0';
+  String get externado => _externado;
+  set externado(String _value) {
+    _externado = _value;
+  }
+
+  String _matriculaTest = '';
+  String get matriculaTest => _matriculaTest;
+  set matriculaTest(String _value) {
+    _matriculaTest = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

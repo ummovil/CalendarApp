@@ -1,0 +1,3 @@
+NSFaceIDUsageDescription = "faça login com sua impressão digital ou faceID";
+PermissionGroupNotification = "Sempre receba mensagens";
+NSCalendarsUsageDescription = "Calendário";

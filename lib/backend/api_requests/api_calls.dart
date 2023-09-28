@@ -2,46 +2,11 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import '../../flutter_flow/flutter_flow_util.dart';
-
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
 
 const _kPrivateApiFunctionName = 'ffPrivateApiCall';
-
-/// Start statusAlumno Group Code
-
-class StatusAlumnoGroup {
-  static String baseUrl =
-      'https://wso2am.um.edu.mx/t/um.contabilidad/academico/1.0/alumno';
-  static Map<String, String> headers = {
-    'Authentication': 'Bearer [token]',
-  };
-  static ObtieneCarreraCall obtieneCarreraCall = ObtieneCarreraCall();
-}
-
-class ObtieneCarreraCall {
-  Future<ApiCallResponse> call({
-    String? token = '',
-    String? matricula = '',
-  }) {
-    return ApiManager.instance.makeApiCall(
-      callName: 'obtieneCarrera',
-      apiUrl: '${StatusAlumnoGroup.baseUrl}/obtiene/carrera/${matricula}',
-      callType: ApiCallType.GET,
-      headers: {
-        ...StatusAlumnoGroup.headers,
-      },
-      params: {},
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-    );
-  }
-}
-
-/// End statusAlumno Group Code
 
 class AreasCall {
   static Future<ApiCallResponse> call() {
@@ -59,12 +24,12 @@ class AreasCall {
   }
 }
 
-class PreguntasCall {
+class GetNumQuestionsCall {
   static Future<ApiCallResponse> call({
     String? areaId = '',
   }) {
     return ApiManager.instance.makeApiCall(
-      callName: 'preguntas',
+      callName: 'getNumQuestions',
       apiUrl:
           'https://am.um.edu.mx/buzon/api/cuestionario/preguntas/${areaId}/N',
       callType: ApiCallType.GET,
@@ -96,12 +61,12 @@ class PreguntasCall {
       );
 }
 
-class PreguntaTextoCall {
+class GetTxtQuestionsCall {
   static Future<ApiCallResponse> call({
     String? areaId = '',
   }) {
     return ApiManager.instance.makeApiCall(
-      callName: 'PreguntaTexto',
+      callName: 'getTxtQuestions',
       apiUrl:
           'https://am.um.edu.mx/buzon/api/cuestionario/preguntas/${areaId}/T',
       callType: ApiCallType.GET,
@@ -134,11 +99,11 @@ class PreguntaTextoCall {
 class RespuestaApiCall {
   static Future<ApiCallResponse> call({
     String? preguntaId = '',
-    double? respuestaNumero,
+    int? respuestaNumero,
     int? codigo,
     String? respuestaTexto = '',
   }) {
-    final body = '''
+    final ffApiRequestBody = '''
 {
   "pregunta": {
     "preguntaId": "${preguntaId}"
@@ -153,7 +118,7 @@ class RespuestaApiCall {
       callType: ApiCallType.POST,
       headers: {},
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -176,7 +141,7 @@ class LogCall {
       callType: ApiCallType.POST,
       headers: {
         'Authorization':
-            'Basic ZmtUTURVamhOOG53WjNHRXNLbF9YWlFqdWRZYTpzZXJBV1JrWl9BdnJsck5CekNaeFpISXJranNh',
+            'Basic YVZqSnExTlJzeFplcDB0T0tRRDV4X255UUs0YTpqVWxDTVBJVkVEckRDdTROZmJnUjlLY2Ribjhh',
       },
       params: {
         'grant_type': grantType,
@@ -219,7 +184,7 @@ class RecoveryPasswordCall {
   static Future<ApiCallResponse> call({
     String? username = '',
   }) {
-    final body = '''
+    final ffApiRequestBody = '''
 {
   "user": {
     "username": "${username}",
@@ -237,7 +202,7 @@ class RecoveryPasswordCall {
         'Authorization': 'Basic bGFmdWVudGVAdW0ubW92aWw6Sm9rZXIyNDA0',
       },
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -253,7 +218,7 @@ class SelfRegistrationCall {
     String? password = '',
     String? emailAddress = '',
   }) {
-    final body = '''
+    final ffApiRequestBody = '''
 {
   "user": {
     "username": "${username}",
@@ -275,7 +240,7 @@ class SelfRegistrationCall {
         'Authorization': 'Basic bGFmdWVudGVAdW0ubW92aWw6Sm9rZXIyNDA0',
       },
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -430,6 +395,113 @@ class GetTokenApiCall {
       cache: false,
     );
   }
+}
+
+class ObtenerPPrincipalCall {
+  static Future<ApiCallResponse> call({
+    String? matricula = '',
+    String? token = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'obtenerPPrincipal',
+      apiUrl:
+          'https://wso2am.um.edu.mx/t/um.contabilidad/academico/1.0/alumno/obtiene/carrera/${matricula}',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer ${token}',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  static dynamic nombre(dynamic response) => getJsonField(
+        response,
+        r'''$.nombreCompleto''',
+      );
+  static dynamic planEstudios(dynamic response) => getJsonField(
+        response,
+        r'''$.planId''',
+      );
+  static dynamic programaPrincipal(dynamic response) => getJsonField(
+        response,
+        r'''$.carrera''',
+      );
+  static dynamic internado(dynamic response) => getJsonField(
+        response,
+        r'''$.dormitorio''',
+      );
+}
+
+class ObtenerStatusCall {
+  static Future<ApiCallResponse> call({
+    String? matricula = '',
+    String? token = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'obtenerStatus',
+      apiUrl:
+          'https://wso2am.um.edu.mx/t/um.contabilidad/academico/1.0/alumno/inscrito/${matricula}',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer ${token}',
+      },
+      params: {
+        'matricula': matricula,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  static dynamic estatusInscripcion(dynamic response) => getJsonField(
+        response,
+        r'''$[:].inscrito''',
+      );
+}
+
+class CalendarCall {
+  static Future<ApiCallResponse> call() {
+    return ApiManager.instance.makeApiCall(
+      callName: 'calendar',
+      apiUrl: 'http://146.190.114.136:5968/get_agenda_um_calendar',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-type': 'application/json',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  static dynamic description(dynamic response) => getJsonField(
+        response,
+        r'''$[:].description''',
+        true,
+      );
+  static dynamic title(dynamic response) => getJsonField(
+        response,
+        r'''$[:].title''',
+        true,
+      );
+  static dynamic fin(dynamic response) => getJsonField(
+        response,
+        r'''$[:].end''',
+        true,
+      );
+  static dynamic date(dynamic response) => getJsonField(
+        response,
+        r'''$[:].date''',
+        true,
+      );
 }
 
 class ApiPagingParams {

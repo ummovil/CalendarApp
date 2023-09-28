@@ -14,7 +14,7 @@ class FormularioWidget extends StatefulWidget {
   const FormularioWidget({
     Key? key,
     String? codigoqr,
-  })  : this.codigoqr = codigoqr ?? 'cc164cd8-49cb-46a2-a3e9-c3e37532a8d9',
+  })  : this.codigoqr = codigoqr ?? 'a2d5f012-1e28-4fe6-8f2c-3b4c50e0bc26',
         super(key: key);
 
   final String codigoqr;
@@ -48,15 +48,17 @@ class _FormularioWidgetState extends State<FormularioWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        backgroundColor: Color(0xFF858EFF),
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           automaticallyImplyLeading: false,
           title: FutureBuilder<ApiCallResponse>(
-            future: PreguntaTextoCall.call(
+            future: GetTxtQuestionsCall.call(
               areaId: widget.codigoqr,
             ),
             builder: (context, snapshot) {
@@ -74,16 +76,17 @@ class _FormularioWidgetState extends State<FormularioWidget> {
                   ),
                 );
               }
-              final textPreguntaTextoResponse = snapshot.data!;
+              final textGetTxtQuestionsResponse = snapshot.data!;
               return Text(
-                'Formulario de ${PreguntaTextoCall.departamento(
-                  textPreguntaTextoResponse.jsonBody,
+                'Formulario de ${GetTxtQuestionsCall.departamento(
+                  textGetTxtQuestionsResponse.jsonBody,
                 ).toString()}',
                 style: FlutterFlowTheme.of(context).headlineMedium,
               );
             },
           ),
           actions: [
+            // Cierra la vista Formulario.
             wrapWithModel(
               model: _model.cerrarModel,
               updateCallback: () => setState(() {}),
@@ -100,194 +103,219 @@ class _FormularioWidgetState extends State<FormularioWidget> {
             child: Form(
               key: _model.formKey,
               autovalidateMode: AutovalidateMode.disabled,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'QUEREMOS ESCUCHARTE',
-                      textAlign: TextAlign.center,
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).bodyMediumFamily,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                FlutterFlowTheme.of(context).bodyMediumFamily),
-                          ),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(40.0),
+                        bottomRight: Radius.circular(40.0),
+                        topLeft: Radius.circular(0.0),
+                        topRight: Radius.circular(0.0),
+                      ),
                     ),
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          width: MediaQuery.sizeOf(context).width * 0.9,
-                          height: 100.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                          ),
-                          child: Text(
-                            'Este formulario consta de cinco opciones de respuesta que van desde \"Totalmente en desacuerdo\" hasta \"Totalmente de acuerdo\" representadas por estrellas.',
-                            textAlign: TextAlign.justify,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .bodyMediumFamily,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .bodyMediumFamily),
-                                ),
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.sizeOf(context).width * 0.9,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: FutureBuilder<ApiCallResponse>(
-                            future: PreguntasCall.call(
-                              areaId: widget.codigoqr,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            width: MediaQuery.sizeOf(context).width * 0.9,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
                             ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
-                                    ),
+                            child: Text(
+                              FFLocalizations.of(context).getText(
+                                'lh6rxfuu' /* Este formulario consta de cinc... */,
+                              ),
+                              textAlign: TextAlign.justify,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: FlutterFlowTheme.of(context)
+                                        .bodyMediumFamily,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    useGoogleFonts: GoogleFonts.asMap()
+                                        .containsKey(
+                                            FlutterFlowTheme.of(context)
+                                                .bodyMediumFamily),
                                   ),
-                                );
-                              }
-                              final listViewPreguntasResponse = snapshot.data!;
-                              return Builder(
-                                builder: (context) {
-                                  final items = listViewPreguntasResponse
-                                      .jsonBody
-                                      .toList();
-                                  return ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: items.length,
-                                    itemBuilder: (context, itemsIndex) {
-                                      final itemsItem = items[itemsIndex];
-                                      return Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Text(
-                                            getJsonField(
-                                              itemsItem,
-                                              r'''$.descripcion''',
-                                            ).toString(),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 16.0, 0.0, 0.0),
+                            child: Container(
+                              width: MediaQuery.sizeOf(context).width * 0.9,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child:
+                                  // Muestra las preguntas que contiene el formulario, junto a un RatingBar.
+                                  FutureBuilder<ApiCallResponse>(
+                                future: GetNumQuestionsCall.call(
+                                  areaId: widget.codigoqr,
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
                                           ),
-                                          wrapWithModel(
-                                            model:
-                                                _model.ratingBarModels.getModel(
-                                              itemsIndex.toString(),
-                                              itemsIndex,
-                                            ),
-                                            updateCallback: () =>
-                                                setState(() {}),
-                                            child: RatingBarWidget(
-                                              key: Key(
-                                                'Keyo1v_${itemsIndex.toString()}',
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  final listViewGetNumQuestionsResponse =
+                                      snapshot.data!;
+                                  return Builder(
+                                    builder: (context) {
+                                      final items =
+                                          listViewGetNumQuestionsResponse
+                                              .jsonBody
+                                              .toList();
+                                      return ListView.builder(
+                                        padding: EdgeInsets.zero,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: items.length,
+                                        itemBuilder: (context, itemsIndex) {
+                                          final itemsItem = items[itemsIndex];
+                                          return Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              // Muestra una pregunta del formula.
+                                              Text(
+                                                getJsonField(
+                                                  itemsItem,
+                                                  r'''$.descripcion''',
+                                                ).toString(),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium,
                                               ),
-                                            ),
-                                          ),
-                                        ],
+
+                                              // Puntuación de la pregunta.
+                                              wrapWithModel(
+                                                model: _model.ratingBarModels
+                                                    .getModel(
+                                                  itemsIndex.toString(),
+                                                  itemsIndex,
+                                                ),
+                                                updateCallback: () =>
+                                                    setState(() {}),
+                                                child: RatingBarWidget(
+                                                  key: Key(
+                                                    'Keyo1v_${itemsIndex.toString()}',
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
                                       );
                                     },
                                   );
                                 },
-                              );
-                            },
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.sizeOf(context).width * 0.9,
-                          height: 200.0,
-                          constraints: BoxConstraints(
-                            maxWidth: MediaQuery.sizeOf(context).width * 0.9,
-                          ),
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                          ),
-                          child: FutureBuilder<ApiCallResponse>(
-                            future: PreguntasCall.call(
-                              areaId: widget.codigoqr,
+                              ),
                             ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }
-                              final columnPreguntasResponse = snapshot.data!;
-                              return Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 0.9,
-                                    child: Stack(
-                                      children: [
-                                        FutureBuilder<ApiCallResponse>(
-                                          future: PreguntaTextoCall.call(
-                                            areaId: widget.codigoqr,
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 8.0),
+                            child: Container(
+                              width: MediaQuery.sizeOf(context).width * 0.9,
+                              height: 200.0,
+                              constraints: BoxConstraints(
+                                maxWidth:
+                                    MediaQuery.sizeOf(context).width * 0.9,
+                              ),
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                              ),
+                              child: FutureBuilder<ApiCallResponse>(
+                                future: GetNumQuestionsCall.call(
+                                  areaId: widget.codigoqr,
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
                                           ),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation<
-                                                            Color>(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  final columnGetNumQuestionsResponse =
+                                      snapshot.data!;
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.9,
+                                        child: Stack(
+                                          children: [
+                                            FutureBuilder<ApiCallResponse>(
+                                              future: GetTxtQuestionsCall.call(
+                                                areaId: widget.codigoqr,
+                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        valueColor:
+                                                            AlwaysStoppedAnimation<
+                                                                Color>(
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                            final textPreguntaTextoResponse =
-                                                snapshot.data!;
-                                            return Text(
-                                              PreguntaTextoCall.preguntaUltima(
-                                                textPreguntaTextoResponse
-                                                    .jsonBody,
-                                              ).toString(),
-                                              textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                                  );
+                                                }
+                                                final textGetTxtQuestionsResponse =
+                                                    snapshot.data!;
+                                                return Text(
+                                                  GetTxtQuestionsCall
+                                                      .preguntaUltima(
+                                                    textGetTxtQuestionsResponse
+                                                        .jsonBody,
+                                                  ).toString(),
+                                                  textAlign: TextAlign.center,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily:
@@ -303,131 +331,197 @@ class _FormularioWidgetState extends State<FormularioWidget> {
                                                                         context)
                                                                     .bodyMediumFamily),
                                                       ),
-                                            );
-                                          },
+                                                );
+                                              },
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 0.9,
-                                    child: Stack(
-                                      children: [
-                                        TextFormField(
-                                          controller: _model.textController,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            hintText: 'Comentario',
-                                            hintStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodySmall,
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x77595959),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x77595959),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x77595959),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x77595959),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                            ),
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium,
-                                          maxLines: 5,
-                                          validator: _model
-                                              .textControllerValidator
-                                              .asValidator(context),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.sizeOf(context).width * 0.9,
-                          height: 100.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                          ),
-                          child: FutureBuilder<ApiCallResponse>(
-                            future: PreguntasCall.call(
-                              areaId: widget.codigoqr,
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
                                       ),
-                                    ),
-                                  ),
-                                );
-                              }
-                              final columnPreguntasResponse = snapshot.data!;
-                              return Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  FutureBuilder<ApiCallResponse>(
-                                    future: PreguntaTextoCall.call(
-                                      areaId: widget.codigoqr,
-                                    ),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 50.0,
-                                            height: 50.0,
-                                            child: CircularProgressIndicator(
-                                              valueColor:
-                                                  AlwaysStoppedAnimation<Color>(
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
+                                      Container(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.9,
+                                        child: Stack(
+                                          children: [
+                                            // Campo de texto para agregar un comentario.
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 8.0, 0.0, 0.0),
+                                              child: TextFormField(
+                                                controller:
+                                                    _model.textController,
+                                                obscureText: false,
+                                                decoration: InputDecoration(
+                                                  hintText: FFLocalizations.of(
+                                                          context)
+                                                      .getText(
+                                                    'w0fw58pz' /* Comentario */,
+                                                  ),
+                                                  hintStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodySmall,
+                                                  enabledBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x77595959),
+                                                      width: 2.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20.0),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x77595959),
+                                                      width: 2.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20.0),
+                                                  ),
+                                                  errorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x77595959),
+                                                      width: 2.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20.0),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x77595959),
+                                                      width: 2.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20.0),
+                                                  ),
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium,
+                                                maxLines: 5,
+                                                validator: _model
+                                                    .textControllerValidator
+                                                    .asValidator(context),
                                               ),
                                             ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 100.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).warning,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10.0),
+                        bottomRight: Radius.circular(10.0),
+                        topLeft: Radius.circular(0.0),
+                        topRight: Radius.circular(0.0),
+                      ),
+                    ),
+                    child: Align(
+                      alignment: AlignmentDirectional(0.00, 0.00),
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
+                        child: Text(
+                          FFLocalizations.of(context).getText(
+                            'hgwnt9n2' /* PREGUNTAS */,
+                          ),
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: FlutterFlowTheme.of(context)
+                                    .bodyMediumFamily,
+                                color: FlutterFlowTheme.of(context).primary,
+                                fontSize: 12.0,
+                                useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                    FlutterFlowTheme.of(context)
+                                        .bodyMediumFamily),
+                              ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
+                      child: FutureBuilder<ApiCallResponse>(
+                        future: GetNumQuestionsCall.call(
+                          areaId: widget.codigoqr,
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                          final columnGetNumQuestionsResponse = snapshot.data!;
+                          return Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    48.0, 0.0, 48.0, 0.0),
+                                child: FutureBuilder<ApiCallResponse>(
+                                  future: GetTxtQuestionsCall.call(
+                                    areaId: widget.codigoqr,
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50.0,
+                                          height: 50.0,
+                                          child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                            ),
                                           ),
-                                        );
-                                      }
-                                      final buttonPreguntaTextoResponse =
-                                          snapshot.data!;
-                                      return FFButtonWidget(
-                                        onPressed: () async {
-                                          var _shouldSetState = false;
+                                        ),
+                                      );
+                                    }
+                                    final containerGetTxtQuestionsResponse =
+                                        snapshot.data!;
+                                    return InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        var _shouldSetState = false;
+                                        if (_model.textController.text !=
+                                                null &&
+                                            _model.textController.text != '') {
                                           setState(() {
                                             _model.num = _model.ratingBarModels
                                                 .getValues(
@@ -436,153 +530,169 @@ class _FormularioWidgetState extends State<FormularioWidget> {
                                                 .length;
                                             _model.index = 0;
                                           });
-                                          if (_model.textController.text !=
-                                                  null &&
-                                              _model.textController.text !=
-                                                  '') {
-                                            setState(() {
-                                              _model.num =
-                                                  _model.ratingBarModels
-                                                      .getValues(
-                                                        (m) => m.ratingBarValue,
-                                                      )
-                                                      .length;
-                                              _model.index = 0;
-                                            });
-                                            while (_model.index != _model.num) {
-                                              _model.apiResult6bp =
-                                                  await RespuestaApiCall.call(
-                                                preguntaId:
-                                                    (PreguntasCall.idPreguntaN(
-                                                  columnPreguntasResponse
-                                                      .jsonBody,
-                                                ) as List)
-                                                        .map<String>(
-                                                            (s) => s.toString())
-                                                        .toList()[0]
-                                                        .toString(),
-                                                codigo: FFAppState().matricula,
-                                                respuestaNumero: _model
-                                                    .ratingBarModels
-                                                    .getValueForKey(
-                                                  _model.index!.toString(),
-                                                  (m) => m.ratingBarValue,
-                                                ),
-                                                respuestaTexto: 'null',
-                                              );
-                                              _shouldSetState = true;
-                                              setState(() {
-                                                _model.index =
-                                                    _model.index! + 1;
-                                              });
-                                            }
+                                          while (_model.index != _model.num) {
                                             _model.apiResult =
                                                 await RespuestaApiCall.call(
-                                              preguntaId:
-                                                  (PreguntasCall.idPreguntaN(
-                                                columnPreguntasResponse
+                                              preguntaId: (GetNumQuestionsCall
+                                                      .idPreguntaN(
+                                                columnGetNumQuestionsResponse
                                                     .jsonBody,
                                               ) as List)
-                                                      .map<String>(
-                                                          (s) => s.toString())
-                                                      .toList()[0]
-                                                      .toString(),
+                                                  .map<String>(
+                                                      (s) => s.toString())
+                                                  .toList()[_model.index!],
                                               codigo: FFAppState().matricula,
-                                              respuestaTexto:
-                                                  _model.textController.text,
+                                              respuestaNumero:
+                                                  _model.ratingBarModels
+                                                      .getValueAtIndex(
+                                                        _model.index!,
+                                                        (m) => m.ratingBarValue,
+                                                      )
+                                                      ?.round(),
                                             );
                                             _shouldSetState = true;
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  'envio terminado',
-                                                  style: TextStyle(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
-                                                  ),
-                                                ),
-                                                duration: Duration(
-                                                    milliseconds: 4000),
-                                                backgroundColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                              ),
-                                            );
-                                            Navigator.pop(context);
-                                            if (_shouldSetState)
-                                              setState(() {});
-                                            return;
-                                          } else {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  'Completa los campos ',
-                                                  style: TextStyle(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
-                                                  ),
-                                                ),
-                                                duration: Duration(
-                                                    milliseconds: 4000),
-                                                backgroundColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                              ),
-                                            );
+                                            setState(() {
+                                              _model.index = _model.index! + 1;
+                                            });
                                           }
-
+                                          _model.apiResult2 =
+                                              await RespuestaApiCall.call(
+                                            preguntaId:
+                                                (GetTxtQuestionsCall.preguntaId(
+                                              containerGetTxtQuestionsResponse
+                                                  .jsonBody,
+                                            ) as List)
+                                                    .map<String>(
+                                                        (s) => s.toString())
+                                                    .toList()[0],
+                                            codigo: FFAppState().matricula,
+                                            respuestaTexto:
+                                                _model.textController.text,
+                                          );
+                                          _shouldSetState = true;
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Envio exitoso',
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                            ),
+                                          );
+                                          Navigator.pop(context);
                                           if (_shouldSetState) setState(() {});
-                                        },
-                                        text: 'Responder',
-                                        options: FFButtonOptions(
-                                          width: 130.0,
-                                          height: 40.0,
+                                          return;
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Completa los campos ',
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                            ),
+                                          );
+                                        }
+
+                                        if (_shouldSetState) setState(() {});
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          borderRadius:
+                                              BorderRadius.circular(100.0),
+                                        ),
+                                        child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          textStyle: FlutterFlowTheme.of(
-                                                  context)
-                                              .titleSmall
-                                              .override(
-                                                fontFamily:
+                                                  8.0, 8.0, 8.0, 8.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Icon(
+                                                Icons.file_copy_rounded,
+                                                color:
                                                     FlutterFlowTheme.of(context)
-                                                        .titleSmallFamily,
-                                                color: Colors.white,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleSmallFamily),
+                                                        .primary,
+                                                size: 28.0,
                                               ),
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1.0,
+                                              Expanded(
+                                                child: Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.00, 0.00),
+                                                  child: Text(
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                      '0tipiqah' /* Enviar */,
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          fontSize: 16.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
                                         ),
-                                      );
-                                    },
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              Expanded(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.asset(
+                                    'assets/images/Logo_UM_2.png',
+                                    width: 400.0,
+                                    height: 200.0,
+                                    fit: BoxFit.cover,
                                   ),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
-                      ],
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

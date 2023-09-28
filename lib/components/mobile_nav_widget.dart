@@ -3,9 +3,9 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/formulario/formulario_widget.dart';
-import '/home_page/home_page_widget.dart';
 import '/pagos/pagos_widget.dart';
 import '/perfil/perfil_widget.dart';
+import '/settings/settings_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -59,7 +59,9 @@ class _MobileNavWidgetState extends State<MobileNavWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Material(
+    return
+        // Este container contiene la navbar de la app, esta en el componente llamado mobileNav y contiene 4 iconos de navegacíon: homepage,calendar,QR,pagos y perfil
+        Material(
       color: Colors.transparent,
       elevation: 0.0,
       shape: RoundedRectangleBorder(
@@ -95,42 +97,19 @@ class _MobileNavWidgetState extends State<MobileNavWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
+            // Este widget dirige a la vista HomePage
             FlutterFlowIconButton(
               borderRadius: 30.0,
               borderWidth: 1.0,
               buttonSize: 50.0,
               hoverIconColor: FlutterFlowTheme.of(context).primary,
               icon: Icon(
-                Icons.home_rounded,
-                color: Color(0xFF9299A1),
+                Icons.calendar_today,
+                color: FlutterFlowTheme.of(context).primary,
                 size: 24.0,
               ),
               onPressed: () async {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.rightToLeft,
-                    duration: Duration(milliseconds: 300),
-                    reverseDuration: Duration(milliseconds: 300),
-                    child: HomePageWidget(),
-                  ),
-                  (r) => false,
-                );
-              },
-            ),
-            FlutterFlowIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 30.0,
-              borderWidth: 1.0,
-              buttonSize: 50.0,
-              hoverIconColor: FlutterFlowTheme.of(context).primary,
-              icon: Icon(
-                Icons.calendar_today_rounded,
-                color: Color(0xFF9299A1),
-                size: 24.0,
-              ),
-              onPressed: () async {
-                Navigator.pushAndRemoveUntil(
+                Navigator.push(
                   context,
                   PageTransition(
                     type: PageTransitionType.rightToLeft,
@@ -138,7 +117,31 @@ class _MobileNavWidgetState extends State<MobileNavWidget> {
                     reverseDuration: Duration(milliseconds: 300),
                     child: CalendarioWidget(),
                   ),
-                  (r) => false,
+                );
+              },
+            ),
+
+            // Este widget dirige a la vista Calendario.
+            FlutterFlowIconButton(
+              borderColor: Colors.transparent,
+              borderRadius: 30.0,
+              borderWidth: 1.0,
+              buttonSize: 50.0,
+              hoverIconColor: FlutterFlowTheme.of(context).primary,
+              icon: Icon(
+                Icons.desktop_windows_sharp,
+                color: FlutterFlowTheme.of(context).primary,
+                size: 24.0,
+              ),
+              onPressed: () async {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.rightToLeft,
+                    duration: Duration(milliseconds: 300),
+                    reverseDuration: Duration(milliseconds: 300),
+                    child: PagosWidget(),
+                  ),
                 );
               },
             ),
@@ -146,6 +149,7 @@ class _MobileNavWidgetState extends State<MobileNavWidget> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                // enciende la cámara para escanear el código QR.
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
                   child: FlutterFlowIconButton(
@@ -163,7 +167,9 @@ class _MobileNavWidgetState extends State<MobileNavWidget> {
                       // codigoqr = es una variable que guarda lo escaneado mediante la cámara
                       _model.codigoqr = await FlutterBarcodeScanner.scanBarcode(
                         '#C62828', // scanning line color
-                        'Inicio', // cancel button text
+                        FFLocalizations.of(context).getText(
+                          'hy74yavn' /* Inicio */,
+                        ), // cancel button text
                         true, // whether to show the flash icon
                         ScanMode.QR,
                       );
@@ -173,7 +179,7 @@ class _MobileNavWidgetState extends State<MobileNavWidget> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomePageWidget(),
+                            builder: (context) => CalendarioWidget(),
                           ),
                         );
                       } else if (Uri.parse(_model.codigoqr!).isAbsolute) {
@@ -213,6 +219,8 @@ class _MobileNavWidgetState extends State<MobileNavWidget> {
                 ),
               ],
             ),
+
+            // Esta vista dirige a la vista Pagos.
             FlutterFlowIconButton(
               borderColor: Colors.transparent,
               borderRadius: 30.0,
@@ -220,23 +228,24 @@ class _MobileNavWidgetState extends State<MobileNavWidget> {
               buttonSize: 50.0,
               hoverIconColor: FlutterFlowTheme.of(context).primary,
               icon: Icon(
-                Icons.monetization_on,
-                color: Color(0xFF9299A1),
+                Icons.settings_outlined,
+                color: FlutterFlowTheme.of(context).primary,
                 size: 24.0,
               ),
               onPressed: () async {
-                Navigator.pushAndRemoveUntil(
+                Navigator.push(
                   context,
                   PageTransition(
                     type: PageTransitionType.rightToLeft,
                     duration: Duration(milliseconds: 300),
                     reverseDuration: Duration(milliseconds: 300),
-                    child: PagosWidget(),
+                    child: SettingsWidget(),
                   ),
-                  (r) => false,
                 );
               },
             ),
+
+            // Este widget dirige a la vista Perfil
             FlutterFlowIconButton(
               borderColor: Colors.transparent,
               borderRadius: 30.0,
@@ -244,8 +253,8 @@ class _MobileNavWidgetState extends State<MobileNavWidget> {
               buttonSize: 50.0,
               hoverIconColor: FlutterFlowTheme.of(context).primary,
               icon: Icon(
-                Icons.person,
-                color: Color(0xFF9299A1),
+                Icons.person_outline,
+                color: FlutterFlowTheme.of(context).primary,
                 size: 24.0,
               ),
               onPressed: () async {

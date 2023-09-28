@@ -40,19 +40,21 @@ class _RatingBarWidgetState extends State<RatingBarWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return RatingBar.builder(
+    return
+        // Componente que se muestra e el ListView de la vista Formulario.
+        RatingBar.builder(
       onRatingUpdate: (newValue) =>
           setState(() => _model.ratingBarValue = newValue),
       itemBuilder: (context, index) => Icon(
         Icons.star_rounded,
-        color: FlutterFlowTheme.of(context).tertiary,
+        color: FlutterFlowTheme.of(context).warning,
       ),
       direction: Axis.horizontal,
       initialRating: _model.ratingBarValue ??= 3.0,
       unratedColor: FlutterFlowTheme.of(context).accent3,
       itemCount: 5,
       itemSize: 40.0,
-      glowColor: FlutterFlowTheme.of(context).tertiary,
+      glowColor: FlutterFlowTheme.of(context).warning,
     );
   }
 }

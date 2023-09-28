@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>771667961238-n4a3gvtlc26tledgqc4kaa48fe5qg5lb.apps.googleusercontent.com</string>
+	<string>400384978728-ahfc71tt7ahta3sq246475ddj76n19kk.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.771667961238-n4a3gvtlc26tledgqc4kaa48fe5qg5lb</string>
+	<string>com.googleusercontent.apps.400384978728-ahfc71tt7ahta3sq246475ddj76n19kk</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>400384978728-enrvuis3mjs02fc7gu2sde4gsn2a6faj.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCn_NnBCzLpjxHAbX-yD90X9OWoY8Uegac</string>
+	<string>AIzaSyDi3BN7fsUSq70xRgtXefumlMF6z9Y0vmE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>771667961238</string>
+	<string>400384978728</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>www.um2306.com</string>
 	<key>PROJECT_ID</key>
-	<string>calendar-e3c51</string>
+	<string>testdemo-5f4be</string>
 	<key>STORAGE_BUCKET</key>
-	<string>calendar-e3c51.appspot.com</string>
+	<string>testdemo-5f4be.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:771667961238:ios:9204c795128acd43eba9b7</string>
+	<string>1:400384978728:ios:c1fdb27ae3cc4ba63eaa1d</string>
 </dict>
 </plist>

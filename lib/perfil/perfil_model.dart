@@ -3,24 +3,25 @@ import '/components/main_web_nav_widget.dart';
 import '/components/mobile_nav_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/formulario/formulario_widget.dart';
-import '/home_page/home_page_widget.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flip_card/flip_card.dart';
+import 'perfil_widget.dart' show PerfilWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class PerfilModel extends FlutterFlowModel {
+class PerfilModel extends FlutterFlowModel<PerfilWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Backend Call - API (obtenerPPrincipal)] action in Perfil widget.
+  ApiCallResponse? responseAPI;
   // Model for mainWebNav component.
   late MainWebNavModel mainWebNavModel;
   // Model for mobileNav component.
   late MobileNavModel mobileNavModel;
-  var codigoqr = '';
 
   /// Initialization and disposal methods.
 

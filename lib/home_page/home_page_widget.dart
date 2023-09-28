@@ -2,13 +2,10 @@ import '/components/main_web_nav_widget.dart';
 import '/components/mobile_nav_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_web_view.dart';
-import '/formulario/formulario_widget.dart';
-import '/login_demo/login_demo_widget.dart';
-import '/tess_a_p_i/tess_a_p_i_widget.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
@@ -30,6 +27,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await actions.setConfigOneSignalV3();
+    });
   }
 
   @override
@@ -44,379 +46,217 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-        drawer: Drawer(
-          elevation: 16.0,
-          child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 0.0, 16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Align(
-                  alignment: AlignmentDirectional(-1.0, 0.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset(
-                      'assets/images/logo_um_png_1568336641028.png',
-                      height: 50.0,
-                      fit: BoxFit.contain,
-                    ),
+        backgroundColor: FlutterFlowTheme.of(context).primary,
+        body: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: Image.asset(
+                'assets/images/Fondo.png',
+              ).image,
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              if (responsiveVisibility(
+                context: context,
+                phone: false,
+                tablet: false,
+              ))
+                wrapWithModel(
+                  model: _model.mainWebNavModel,
+                  updateCallback: () => setState(() {}),
+                  child: MainWebNavWidget(
+                    navOne: FlutterFlowTheme.of(context).alternate,
+                    navTwo: FlutterFlowTheme.of(context).secondaryText,
+                    navThree: FlutterFlowTheme.of(context).secondaryText,
+                    navFour: FlutterFlowTheme.of(context).secondaryText,
+                    navFive: FlutterFlowTheme.of(context).secondaryText,
+                    navSix: FlutterFlowTheme.of(context).secondaryText,
                   ),
                 ),
-                Divider(
-                  thickness: 1.0,
-                  color: FlutterFlowTheme.of(context).accent2,
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      setDarkModeSetting(
-                        context,
-                        (FFAppState().theme == true
-                                ? (Theme.of(context).brightness ==
-                                    Brightness.light)
-                                : (Theme.of(context).brightness ==
-                                    Brightness.dark))
-                            ? ThemeMode.dark
-                            : ThemeMode.light,
-                      );
-                    },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Icon(
-                          Icons.light_mode,
-                          color: FlutterFlowTheme.of(context).secondaryText,
-                          size: 24.0,
+
+              // Aqui estará el contenido de la vista Home.
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Material(
+                      color: Colors.transparent,
+                      elevation: 2.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(40.0),
+                          bottomRight: Radius.circular(40.0),
+                          topLeft: Radius.circular(0.0),
+                          topRight: Radius.circular(0.0),
                         ),
-                        Padding(
+                      ),
+                      child: Container(
+                        width: double.infinity,
+                        height: MediaQuery.sizeOf(context).height * 0.4,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(40.0),
+                            bottomRight: Radius.circular(40.0),
+                            topLeft: Radius.circular(0.0),
+                            topRight: Radius.circular(0.0),
+                          ),
+                        ),
+                        child: Icon(
+                          Icons.linked_camera_outlined,
+                          color: Color(0x7057636C),
+                          size: 100.0,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 120.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).warning,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10.0),
+                          bottomRight: Radius.circular(10.0),
+                          topLeft: Radius.circular(0.0),
+                          topRight: Radius.circular(0.0),
+                        ),
+                      ),
+                      child: Align(
+                        alignment: AlignmentDirectional(0.00, 0.00),
+                        child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 0.0, 0.0),
+                              0.0, 8.0, 0.0, 8.0),
                           child: Text(
-                            'Tema',
+                            FFLocalizations.of(context).getText(
+                              '55f9xryg' /* CÓDIGO QR */,
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.normal,
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  fontSize: 12.0,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
                                           .bodyMediumFamily),
                                 ),
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Icon(
-                        Icons.settings,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 24.0,
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                        child: Text(
-                          'Configuraciones',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodyMediumFamily,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.normal,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodyMediumFamily),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                48.0, 0.0, 48.0, 0.0),
+                            child: Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(100.0),
                               ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Icon(
-                        Icons.translate,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 24.0,
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                        child: Text(
-                          'Idioma',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodyMediumFamily,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.normal,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodyMediumFamily),
-                              ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Align(
-                    alignment: AlignmentDirectional(0.0, 1.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Divider(
-                          thickness: 1.0,
-                          color: FlutterFlowTheme.of(context).accent2,
-                        ),
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LoginDemoWidget(),
-                                ),
-                                (r) => false,
-                              );
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Icon(
-                                  Icons.login,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 32.0,
-                                ),
-                                Expanded(
-                                  child: Align(
-                                    alignment: AlignmentDirectional(-1.0, 0.0),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 0.0, 0.0, 0.0),
-                                      child: Text(
-                                        'Cerrar Sesión',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              fontSize: 18.0,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily),
-                                            ),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 8.0, 8.0, 8.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Icon(
+                                      Icons.qr_code_scanner,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      size: 28.0,
+                                    ),
+                                    Expanded(
+                                      child: Align(
+                                        alignment:
+                                            AlignmentDirectional(0.00, 0.00),
+                                        child: Text(
+                                          FFLocalizations.of(context).getText(
+                                            'c7n4462z' /* Escanear QR */,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                fontSize: 16.0,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumFamily),
+                                              ),
+                                        ),
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          automaticallyImplyLeading: false,
-          title: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TessAPIWidget(),
-                    ),
-                  );
-                },
-                child: SvgPicture.asset(
-                  'assets/images/short_logo.svg',
-                  width: 52.0,
-                  height: 37.0,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  _model.codigoqr = await FlutterBarcodeScanner.scanBarcode(
-                    '#C62828', // scanning line color
-                    'Cancel', // cancel button text
-                    true, // whether to show the flash icon
-                    ScanMode.QR,
-                  );
-
-                  if (_model.codigoqr == '-1') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomePageWidget(),
+                        ],
                       ),
-                    );
-                  } else if (Uri.parse(_model.codigoqr!).isAbsolute) {
-                    await showDialog(
-                      context: context,
-                      builder: (alertDialogContext) {
-                        return AlertDialog(
-                          title: Text('QR Inválido'),
-                          content: Text(
-                              'Escanea nuevamente para obtener un código válido.'),
-                          actions: [
-                            TextButton(
-                              onPressed: () =>
-                                  Navigator.pop(alertDialogContext),
-                              child: Text('Ok'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FormularioWidget(
-                          codigoqr: _model.codigoqr,
+                    ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.asset(
+                        'assets/images/Logo_UM_2.png',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    wrapWithModel(
+                      model: _model.mobileNavModel,
+                      updateCallback: () => setState(() {}),
+                      child: MobileNavWidget(
+                        navOneIcon: Icon(
+                          Icons.home_rounded,
+                          color: FlutterFlowTheme.of(context).alternate,
+                        ),
+                        navTwoIcon: Icon(
+                          Icons.grain,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                        ),
+                        navThreeIcon: Icon(
+                          Icons.credit_card_rounded,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                        ),
+                        navFourIcon: Icon(
+                          Icons.group_rounded,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                        ),
+                        navFiveIcon: Icon(
+                          Icons.home_work_rounded,
+                          color: FlutterFlowTheme.of(context).secondaryText,
                         ),
                       ),
-                    );
-                  }
-
-                  setState(() {});
-                },
-                child: Icon(
-                  Icons.assignment,
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                  size: 24.0,
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-          actions: [],
-          centerTitle: false,
-          elevation: 2.0,
-        ),
-        body: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            if (responsiveVisibility(
-              context: context,
-              phone: false,
-              tablet: false,
-            ))
-              wrapWithModel(
-                model: _model.mainWebNavModel,
-                updateCallback: () => setState(() {}),
-                child: MainWebNavWidget(
-                  navOne: FlutterFlowTheme.of(context).alternate,
-                  navTwo: FlutterFlowTheme.of(context).secondaryText,
-                  navThree: FlutterFlowTheme.of(context).secondaryText,
-                  navFour: FlutterFlowTheme.of(context).secondaryText,
-                  navFive: FlutterFlowTheme.of(context).secondaryText,
-                  navSix: FlutterFlowTheme.of(context).secondaryText,
-                ),
-              ),
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        FlutterFlowWebView(
-                          content: 'https://www.um.edu.mx',
-                          bypass: true,
-                          width: MediaQuery.sizeOf(context).width * 1.0,
-                          height: MediaQuery.sizeOf(context).height * 1.0,
-                          verticalScroll: true,
-                          horizontalScroll: false,
-                        ),
-                      ],
-                    ),
-                  ),
-                  wrapWithModel(
-                    model: _model.mobileNavModel,
-                    updateCallback: () => setState(() {}),
-                    child: MobileNavWidget(
-                      navOneIcon: Icon(
-                        Icons.home_rounded,
-                        color: FlutterFlowTheme.of(context).alternate,
-                      ),
-                      navTwoIcon: Icon(
-                        Icons.grain,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                      ),
-                      navThreeIcon: Icon(
-                        Icons.credit_card_rounded,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                      ),
-                      navFourIcon: Icon(
-                        Icons.group_rounded,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                      ),
-                      navFiveIcon: Icon(
-                        Icons.home_work_rounded,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
         ),
       ),
     );

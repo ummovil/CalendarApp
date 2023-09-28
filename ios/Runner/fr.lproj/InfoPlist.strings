@@ -1,0 +1,3 @@
+NSFaceIDUsageDescription = "connectez-vous avec votre empreinte digitale ou votre faceID";
+PermissionGroupNotification = "Recevez toujours des messages";
+NSCalendarsUsageDescription = "Calendrier";

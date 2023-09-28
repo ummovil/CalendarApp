@@ -10,7 +10,6 @@ import 'place.dart';
 import 'uploaded_file.dart';
 import '/backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '/auth/firebase_auth/auth_util.dart';
 
 List<String> dateTimeToDateAndSlash(List<String> myList) {
   // Get a substring with a List<String> from 0 to 9
@@ -38,4 +37,54 @@ String singleStringDTTDS(String originalDate) {
   List<String> myList = [originalDate];
   List<String> result = dateTimeToDateAndSlash(myList);
   return result[0];
+}
+
+String? validarFecha(String? vmeses) {
+  final fechaActual = DateTime.now();
+  String fecha = fechaActual.month.toString();
+  if (fecha == fechaActual) {
+    return 'si';
+  } else {
+    return '';
+  }
+}
+
+String? verifPeriodo(
+  String? row,
+  String? numCasilla,
+) {
+  final fechaActual = DateTime.now();
+  int month = fechaActual.month;
+  String year = fechaActual.year.toString();
+  numCasilla = "202" + numCasilla!;
+
+  switch (row) {
+    case "1":
+      if (month >= 6 && month <= 8) {
+        if (year == numCasilla) {
+          return "S";
+        } else {
+          return " ";
+        }
+      }
+      break;
+    case "2":
+      if (month >= 8 && month <= 12 || month == 1) {
+        if (year == numCasilla) {
+          return "S";
+        } else {
+          return " ";
+        }
+      }
+      break;
+    case "3":
+      if (month >= 1 && month <= 5) {
+        if (year == numCasilla) {
+          return "S";
+        } else {
+          return " ";
+        }
+      }
+      break;
+  }
 }
